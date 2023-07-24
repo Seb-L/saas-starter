@@ -1,0 +1,28 @@
+{
+	"name": "fullstack-boilerplate",
+	"private": true,
+	"scripts": {
+		"build": "turbo run build",
+		"dev": "turbo run dev",
+		"lint": "turbo run lint",
+		"test": "turbo run test",
+		"sherif": "pnpm dlx sherif@latest"
+	},
+	"simple-git-hooks": {
+		"pre-commit": "npx lint-staged"
+	},
+	"lint-staged": {
+		"*.js|*.jsx|*.ts|*.tsx": [
+			"eslint --fix"
+		]
+	},
+	"devDependencies": {
+		"@turbo/gen": "1.10.15",
+		"eslint": "8.51.0",
+		"eslint-config-custom": "workspace:*",
+		"lint-staged": "14.0.1",
+		"simple-git-hooks": "2.9.0",
+		"turbo": "1.10.15"
+	},
+	"packageManager": "pnpm@7.15.0"
+}

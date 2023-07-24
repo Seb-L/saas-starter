@@ -1,0 +1,59 @@
+{
+   "editor.defaultFormatter": "esbenp.prettier-vscode",
+   "editor.formatOnSave": true,
+   "files.exclude": {
+      "apps/web/node_modules/tailwindcss/stubs/**/*": false
+   },
+   "eslint.format.enable": true,
+   "eslint.workingDirectories": [
+      {
+         "pattern": "apps/*/",
+         "changeProcessCWD": true
+      },
+      {
+         "pattern": "packages/*/",
+         "changeProcessCWD": true
+      }
+   ],
+   "eslint.validate": [
+      "typescriptreact",
+      "javascriptreact",
+      "tsx",
+      "jsx",
+      "vue",
+      "javascript",
+      "typescript"
+   ],
+   "eslint.probe": [
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+      "html",
+      "vue",
+      "markdown",
+      "tsx"
+   ],
+   "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true,
+      "source.removeUnusedImports": true
+   },
+   "tailwindCSS.experimental.classRegex": [
+      [
+         "clsx\\(([^)]*)\\)",
+         "cn\\(([^)]*)\\)",
+         "tw`\\(([^)]*)\\)`",
+         "(?:'|\"|`)([^']*)(?:'|\"|`)"
+      ]
+   ],
+   "tailwindCSS.experimental.configFile": "packages/ui/tailwind.config.js",
+   "[typescriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+   },
+   "[json]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+   },
+   "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+   }
+}

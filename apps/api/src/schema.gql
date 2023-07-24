@@ -1,0 +1,93 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Plan {
+  id: Float!
+  name: String!
+  price: Float!
+  stripeProductId: String!
+  isActive: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Account {
+  plan: Plan
+  id: Float!
+  isActive: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Team {
+  users: User
+  id: Float!
+  name: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type User {
+  account: Account
+  teams: Team
+  id: Float!
+  email: String!
+  firstName: String
+  lastName: String
+  password: String!
+  isActive: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type TokenResponse {
+  access_token: String!
+}
+
+type Query {
+  account(id: Float!): Account!
+  accounts: [Account!]!
+  user(id: Float!): User!
+  users: [User!]!
+  plan(id: Float!): Plan!
+  plans: [Plan!]!
+  team(id: Float!): Team!
+  teams: [Team!]!
+}
+
+type Mutation {
+  accountCreate: Account!
+  accountDelete(id: Int!): Account!
+  login(email: String!, password: String!): TokenResponse!
+  register(email: String!, password: String!): User!
+  userCreate(user: UserInput!): User!
+  userUpdate(id: Int!, user: UserInput!): User!
+  userDelete(id: Int!): User!
+  planCreate(plan: PlanInput!): Plan!
+  planUpdate(id: Int!, plan: PlanInput!): Plan!
+  planDelete(id: Int!): Plan!
+  teamCreate(team: TeamInput!): Team!
+  teamUpdate(id: Int!, team: TeamInput!): Team!
+  teamDelete(id: Int!): Team!
+}
+
+input UserInput {
+  firstName: String
+  lastName: String
+}
+
+input PlanInput {
+  name: String!
+  price: Float!
+  stripeProductId: String!
+}
+
+input TeamInput {
+  name: String!
+}
