@@ -26,12 +26,11 @@ import { UsersModule } from './users/users.module'
 			database: process.env.DB_DATABASE,
 			entities: [Account, Plan, Team, User],
 			ssl: true,
-			synchronize: true,
+			synchronize: process.env.NODE_ENV !== 'production',
 		}),
 		GraphQLModule.forRoot<ApolloDriverConfig>({
 			driver: ApolloDriver,
 			autoSchemaFile: 'src/schema.gql',
-			// resolvers: { JSON: GraphQLJSON },
 		}),
 		AccountsModule,
 		AuthModule,
