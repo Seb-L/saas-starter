@@ -1,12 +1,23 @@
 import { Module } from '@nestjs/common'
-import { TypeOrmModule } from '@nestjs/typeorm'
+import { NestjsQueryGraphQLModule } from '@ptc-org/nestjs-query-graphql'
+import { NestjsQueryTypeOrmModule } from '@ptc-org/nestjs-query-typeorm'
 
-import { Team } from './team.model'
-import { TeamsResolver } from './teams.resolver'
-import { TeamsService } from './teams.service'
+import { TeamDto } from './dto/team.dto'
+import { TeamCreateDto } from './dto/team-create.dto'
+import { Team } from './team.entity'
 
 @Module({
-	imports: [TypeOrmModule.forFeature([Team])],
-	providers: [TeamsService, TeamsResolver],
+	imports: [
+		NestjsQueryGraphQLModule.forFeature({
+			imports: [NestjsQueryTypeOrmModule.forFeature([Team])],
+			resolvers: [
+				{
+					EntityClass: Team,
+					DTOClass: TeamDto,
+					CreateDTOClass: TeamCreateDto,
+				},
+			],
+		}),
+	],
 })
 export class TeamsModule {}

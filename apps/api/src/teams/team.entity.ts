@@ -1,4 +1,3 @@
-import { Field, InputType, ObjectType } from '@nestjs/graphql'
 import {
 	Column,
 	CreateDateColumn,
@@ -9,20 +8,18 @@ import {
 	UpdateDateColumn,
 } from 'typeorm'
 
-import { User } from '../users/user.model'
+import { User } from '../users/user.entity'
 
-@ObjectType()
 @Entity()
 export class Team {
-	@PrimaryGeneratedColumn()
-	id: number
+	@PrimaryGeneratedColumn('uuid')
+	id: string
 
 	@Column()
 	name: string
 
 	@ManyToMany(() => User)
 	@JoinColumn()
-	@Field(type => User)
 	users?: User[]
 
 	@CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)' })
@@ -34,13 +31,4 @@ export class Team {
 		onUpdate: 'CURRENT_TIMESTAMP(6)',
 	})
 	updatedAt: Date
-}
-
-@InputType()
-// export class UserInput extends PickType(User, [
-// 	'firstName',
-// 	'lastName',
-// ] as const) {}
-export class TeamInput {
-	name: string
 }

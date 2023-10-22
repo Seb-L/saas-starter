@@ -4,7 +4,7 @@ import { getRepositoryToken } from '@nestjs/typeorm'
 import { DataSource } from 'typeorm'
 import { beforeEach, describe, expect, it } from 'vitest'
 
-import { Account } from '../../accounts/account.model'
+import { Account } from '../../accounts/dto/account.dto'
 import { User } from '../../users/user.model'
 import { UsersService } from '../../users/users.service'
 import { AuthResolver } from '../auth.resolver'

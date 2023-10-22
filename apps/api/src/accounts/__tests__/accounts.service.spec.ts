@@ -2,8 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
 import { beforeEach, describe, expect, it } from 'vitest'
 
-import { Account } from '../account.model'
 import { AccountsService } from '../accounts.service'
+import { Account } from '../dto/account.dto'
 
 describe('AccountService', () => {
 	let service: AccountsService

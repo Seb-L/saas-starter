@@ -1,4 +1,3 @@
-import { Field, ObjectType } from '@nestjs/graphql'
 import {
 	Column,
 	CreateDateColumn,
@@ -9,20 +8,18 @@ import {
 	UpdateDateColumn,
 } from 'typeorm'
 
-import { Plan } from '../plans/plan.model'
+import { Plan } from '../plans/plan.entity'
 
-@ObjectType()
 @Entity()
 export class Account {
-	@PrimaryGeneratedColumn()
-	id: number
+	@PrimaryGeneratedColumn('uuid')
+	id: string
 
 	@Column({ default: true })
 	isActive: boolean
 
 	@OneToOne(() => Plan, { nullable: true })
 	@JoinColumn()
-	@Field(() => Plan)
 	plan?: Plan
 
 	@CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)' })

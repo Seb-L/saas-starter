@@ -4,14 +4,14 @@ import { ConfigModule } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
-import { Account } from './accounts/account.model'
+import { Account } from './accounts/account.entity'
 import { AccountsModule } from './accounts/accounts.module'
 import { AuthModule } from './auth/auth.module'
-import { Plan } from './plans/plan.model'
+import { Plan } from './plans/plan.entity'
 import { PlansModule } from './plans/plans.module'
-import { Team } from './teams/team.model'
+import { Team } from './teams/team.entity'
 import { TeamsModule } from './teams/teams.module'
-import { User } from './users/user.model'
+import { User } from './users/user.entity'
 import { UsersModule } from './users/users.module'
 
 @Module({

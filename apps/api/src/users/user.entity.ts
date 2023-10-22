@@ -1,4 +1,3 @@
-import { Field, InputType, ObjectType } from '@nestjs/graphql'
 import { Exclude } from 'class-transformer'
 import {
 	Column,
@@ -12,12 +11,9 @@ import {
 	UpdateDateColumn,
 } from 'typeorm'
 
-import { Account } from '../accounts/account.model'
-import { Team } from '../teams/team.model'
+import { Account } from '../accounts/account.entity'
+import { Team } from '../teams/team.entity'
 
-// import { Team } from '../../team/entities/team.entity'
-
-@ObjectType()
 @Entity()
 export class User {
 	@PrimaryGeneratedColumn()
@@ -41,12 +37,10 @@ export class User {
 
 	@OneToOne(() => Account)
 	@JoinColumn()
-	@Field(type => Account)
 	account?: Account
 
 	@ManyToMany(() => Team, { nullable: true })
 	@JoinTable()
-	@Field(type => Team)
 	teams?: Team[]
 
 	@CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)' })
@@ -62,15 +56,4 @@ export class User {
 	constructor (partial: Partial<User>) {
 		Object.assign(this, partial)
 	}
-}
-
-@InputType()
-// export class UserInput extends PickType(User, [
-// 	'firstName',
-// 	'lastName',
-// ] as const) {}
-export class UserInput {
-	firstName?: string
-
-	lastName?: string
 }

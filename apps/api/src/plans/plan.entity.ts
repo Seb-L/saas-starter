@@ -10,8 +10,8 @@ import {
 @ObjectType()
 @Entity()
 export class Plan {
-	@PrimaryGeneratedColumn()
-	id: number
+	@PrimaryGeneratedColumn('uuid')
+	id: string
 
 	@Column()
 	name: string
@@ -39,6 +39,8 @@ export class Plan {
 @InputType()
 export class PlanInput {
 	name: string
+
 	price: number
+
 	stripeProductId: string
 }

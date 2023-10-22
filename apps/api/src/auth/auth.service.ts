@@ -1,16 +1,11 @@
-import {
-	ConflictException,
-	Injectable,
-	UnauthorizedException,
-} from '@nestjs/common'
+import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { InjectRepository } from '@nestjs/typeorm'
 import * as bcrypt from 'bcrypt'
 import { DataSource, Repository } from 'typeorm'
 
-import { Account } from '../accounts/account.model'
-import { User } from '../users/user.model'
-import { UsersService } from '../users/users.service'
+import { Account } from '../accounts/account.entity'
+import { User } from '../users/user.entity'
 import { JwtPayload } from './jwt.interface'
 
 const saltOrRounds = 10
@@ -18,17 +13,14 @@ const saltOrRounds = 10
 @Injectable()
 export class AuthService {
 	constructor (
-		@InjectRepository(Account)
-		private accountsRepository: Repository<Account>,
 		private dataSource: DataSource,
 		private jwtService: JwtService,
-		@InjectRepository(User)
-		private usersRepository: Repository<User>,
-		private usersService: UsersService,
+		@InjectRepository(Account) private accountsRepository: Repository<Account>,
+		@InjectRepository(User) private usersRepository: Repository<User>,
 	) {}
 
 	async validateJwtPayload (payload: JwtPayload) {
-		const user = await this.usersService.findOneByEmail(payload.email)
+		const user = await this.usersRepository.findOne({ where: { email: payload.email } })
 
 		if (user && user.isActive) return user
 
@@ -36,7 +28,7 @@ export class AuthService {
 	}
 
 	async login (email: string, password: string) {
-		const user = await this.usersService.findOneByEmail(email)
+		const user = await this.usersRepository.findOne({ where: { email } })
 		const hash = await bcrypt.hash(password, saltOrRounds)
 		const isPassMatching = await bcrypt.compare(user?.password, hash)
 

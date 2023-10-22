@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
 import { beforeEach, describe, expect, it } from 'vitest'
 
-import { Team } from '../team.model'
+import { Team } from '../team.entity'
 import { TeamsResolver } from '../teams.resolver'
 import { TeamsService } from '../teams.service'
 
