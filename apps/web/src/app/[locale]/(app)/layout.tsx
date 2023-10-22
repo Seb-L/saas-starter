@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react'
 import { Sidebar } from 'ui'
 
-import '@/styles/globals.css'
+import '~/styles/globals.css'
 
 const MarketingLayout = async ({ children }: PropsWithChildren) => {
 	return (

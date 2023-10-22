@@ -2,7 +2,7 @@ import { InputType, ObjectType } from '@nestjs/graphql'
 import {
 	Column,
 	CreateDateColumn,
-	Entity,
+	Entity, Index,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
 } from 'typeorm'
@@ -10,9 +10,10 @@ import {
 @ObjectType()
 @Entity()
 export class Plan {
-	@PrimaryGeneratedColumn()
-	id: number
+	@PrimaryGeneratedColumn('uuid')
+	id: string
 
+	@Index()
 	@Column()
 	name: string
 
@@ -25,20 +26,18 @@ export class Plan {
 	@Column({ default: true })
 	isActive: boolean
 
-	@CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)' })
-	createdAt: Date
+	@CreateDateColumn()
+	createdDate: Date
 
-	@UpdateDateColumn({
-		type: 'timestamp',
-		default: () => 'CURRENT_TIMESTAMP(6)',
-		onUpdate: 'CURRENT_TIMESTAMP(6)',
-	})
-	updatedAt: Date
+	@UpdateDateColumn()
+	updatedDate: Date
 }
 
 @InputType()
 export class PlanInput {
 	name: string
+
 	price: number
+
 	stripeProductId: string
 }

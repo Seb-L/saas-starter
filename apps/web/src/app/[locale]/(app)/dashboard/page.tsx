@@ -1,18 +1,9 @@
-'use client'
+import { auth } from '~/auth'
 
-import { gql, useQuery } from '@urql/next'
+const Page = async () => {
+	const session = await auth()
 
-const PokemonsQuery = gql`
-   query {
-	  pokemons(limit: 10) {
-		 id
-		 name
-	  }
-   }
-`
-
-const Page = () => {
-	const [result] = useQuery({ query: PokemonsQuery })
+	console.log({ session })
 
 	const posts = []
 

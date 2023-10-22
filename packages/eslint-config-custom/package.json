@@ -20,7 +20,7 @@
 		"eslint-plugin-tailwindcss": "3.13.0",
 		"eslint-plugin-testing-library": "6.0.2",
 		"eslint-plugin-turbo": "1.10.15",
-		"next": "13.5.4"
+		"next": "14.0.0"
 	},
 	"devDependencies": {
 		"@types/node": "20.8.3"

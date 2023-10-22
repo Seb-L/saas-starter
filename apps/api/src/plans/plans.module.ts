@@ -1,12 +1,23 @@
 import { Module } from '@nestjs/common'
-import { TypeOrmModule } from '@nestjs/typeorm'
+import { NestjsQueryGraphQLModule } from '@ptc-org/nestjs-query-graphql'
+import { NestjsQueryTypeOrmModule } from '@ptc-org/nestjs-query-typeorm'
 
-import { Plan } from './plan.model'
-import { PlansResolver } from './plans.resolver'
-import { PlansService } from './plans.service'
+import { PlanDto } from './dto/plan.dto'
+import { PlanCreateDto } from './dto/plan-create.dto'
+import { Plan } from './plan.entity'
 
 @Module({
-	imports: [TypeOrmModule.forFeature([Plan])],
-	providers: [PlansService, PlansResolver],
+	imports: [
+		NestjsQueryGraphQLModule.forFeature({
+			imports: [NestjsQueryTypeOrmModule.forFeature([Plan])],
+			resolvers: [
+				{
+					EntityClass: Plan,
+					DTOClass: PlanDto,
+					CreateDTOClass: PlanCreateDto,
+				},
+			],
+		}),
+	],
 })
 export class PlansModule {}

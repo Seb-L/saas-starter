@@ -1,13 +1,21 @@
 import { Module } from '@nestjs/common'
-import { TypeOrmModule } from '@nestjs/typeorm'
+import { NestjsQueryGraphQLModule } from '@ptc-org/nestjs-query-graphql'
+import { NestjsQueryTypeOrmModule } from '@ptc-org/nestjs-query-typeorm'
 
-import { User } from './user.model'
-import { UsersResolver } from './users.resolver'
-import { UsersService } from './users.service'
+import { UserDto } from './dto/user.dto'
+import { User } from './user.entity'
 
 @Module({
-	imports: [TypeOrmModule.forFeature([User])],
-	providers: [UsersService, UsersResolver],
-	exports: [UsersService],
+	imports: [
+		NestjsQueryGraphQLModule.forFeature({
+			imports: [NestjsQueryTypeOrmModule.forFeature([User])],
+			resolvers: [
+				{
+					EntityClass: User,
+					DTOClass: UserDto,
+				},
+			],
+		}),
+	],
 })
 export class UsersModule {}

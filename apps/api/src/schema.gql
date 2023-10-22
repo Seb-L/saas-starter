@@ -2,14 +2,14 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Plan {
-  id: Float!
+type plan {
+  id: ID!
   name: String!
   price: Float!
   stripeProductId: String!
   isActive: Boolean!
-  createdAt: DateTime!
-  updatedAt: DateTime!
+  createdDate: DateTime!
+  updatedDate: DateTime!
 }
 
 """
@@ -17,77 +17,898 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-type Account {
-  plan: Plan
-  id: Float!
+type account {
+  id: ID!
   isActive: Boolean!
-  createdAt: DateTime!
-  updatedAt: DateTime!
+  createdDate: DateTime!
+  updatedDate: DateTime!
+  plan: plan!
 }
 
-type Team {
-  users: User
-  id: Float!
+type DeleteManyResponse {
+  """The number of records deleted."""
+  deletedCount: Int!
+}
+
+type AccountDeleteResponse {
+  id: ID
+  isActive: Boolean
+  createdDate: DateTime
+  updatedDate: DateTime
+}
+
+type UpdateManyResponse {
+  """The number of records updated."""
+  updatedCount: Int!
+}
+
+type accountEdge {
+  """The node containing the account"""
+  node: account!
+
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+}
+
+"""Cursor for paging through collections"""
+scalar ConnectionCursor
+
+type PageInfo {
+  """true if paging forward and there are more records."""
+  hasNextPage: Boolean
+
+  """true if paging backwards and there are more records."""
+  hasPreviousPage: Boolean
+
+  """The cursor of the first returned record."""
+  startCursor: ConnectionCursor
+
+  """The cursor of the last returned record."""
+  endCursor: ConnectionCursor
+}
+
+type AccountConnection {
+  """Paging information"""
+  pageInfo: PageInfo!
+
+  """Array of edges."""
+  edges: [accountEdge!]!
+}
+
+type projects {
+  id: ID!
   name: String!
-  createdAt: DateTime!
-  updatedAt: DateTime!
+  slug: String!
+  createdDate: DateTime!
+  updatedDate: DateTime!
+  users: user!
+  teams: teams!
 }
 
-type User {
-  account: Account
-  teams: Team
-  id: Float!
+type teams {
+  id: ID!
+  name: String!
+  slug: String!
+  createdDate: DateTime!
+  updatedDate: DateTime!
+  users: user!
+  projects: projects!
+}
+
+type user {
+  id: ID!
   email: String!
+  firstName: String!
+  lastName: String!
+  isActive: Boolean!
+  createdDate: DateTime!
+  updatedDate: DateTime!
+  account: account
+  teams(
+    """Specify to filter the records returned."""
+    filter: teamsFilter! = {}
+
+    """Specify to sort results."""
+    sorting: [teamsSort!]! = []
+  ): [teams!]
+}
+
+input teamsFilter {
+  and: [teamsFilter!]
+  or: [teamsFilter!]
+  id: IDFilterComparison
+  name: StringFieldComparison
+  slug: StringFieldComparison
+  createdDate: DateFieldComparison
+  updatedDate: DateFieldComparison
+}
+
+input IDFilterComparison {
+  is: Boolean
+  isNot: Boolean
+  eq: ID
+  neq: ID
+  gt: ID
+  gte: ID
+  lt: ID
+  lte: ID
+  like: ID
+  notLike: ID
+  iLike: ID
+  notILike: ID
+  in: [ID!]
+  notIn: [ID!]
+}
+
+input StringFieldComparison {
+  is: Boolean
+  isNot: Boolean
+  eq: String
+  neq: String
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+  like: String
+  notLike: String
+  iLike: String
+  notILike: String
+  in: [String!]
+  notIn: [String!]
+}
+
+input DateFieldComparison {
+  is: Boolean
+  isNot: Boolean
+  eq: DateTime
+  neq: DateTime
+  gt: DateTime
+  gte: DateTime
+  lt: DateTime
+  lte: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  between: DateFieldComparisonBetween
+  notBetween: DateFieldComparisonBetween
+}
+
+input DateFieldComparisonBetween {
+  lower: DateTime!
+  upper: DateTime!
+}
+
+input teamsSort {
+  field: teamsSortFields!
+  direction: SortDirection!
+  nulls: SortNulls
+}
+
+enum teamsSortFields {
+  id
+  name
+  slug
+  createdDate
+  updatedDate
+}
+
+"""Sort Directions"""
+enum SortDirection {
+  ASC
+  DESC
+}
+
+"""Sort Nulls Options"""
+enum SortNulls {
+  NULLS_FIRST
+  NULLS_LAST
+}
+
+type UserDeleteResponse {
+  id: ID
+  email: String
   firstName: String
   lastName: String
-  password: String!
-  isActive: Boolean!
-  createdAt: DateTime!
-  updatedAt: DateTime!
+  isActive: Boolean
+  createdDate: DateTime
+  updatedDate: DateTime
+}
+
+type userEdge {
+  """The node containing the user"""
+  node: user!
+
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+}
+
+type UserConnection {
+  """Paging information"""
+  pageInfo: PageInfo!
+
+  """Array of edges."""
+  edges: [userEdge!]!
 }
 
 type TokenResponse {
   access_token: String!
 }
 
+type PlanDeleteResponse {
+  id: ID
+  name: String
+  price: Float
+  stripeProductId: String
+  isActive: Boolean
+  createdDate: DateTime
+  updatedDate: DateTime
+}
+
+type planEdge {
+  """The node containing the plan"""
+  node: plan!
+
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+}
+
+type PlanConnection {
+  """Paging information"""
+  pageInfo: PageInfo!
+
+  """Array of edges."""
+  edges: [planEdge!]!
+}
+
+type ProjectsDeleteResponse {
+  id: ID
+  name: String
+  slug: String
+  createdDate: DateTime
+  updatedDate: DateTime
+}
+
+type projectsEdge {
+  """The node containing the projects"""
+  node: projects!
+
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+}
+
+type ProjectsConnection {
+  """Paging information"""
+  pageInfo: PageInfo!
+
+  """Array of edges."""
+  edges: [projectsEdge!]!
+}
+
+type TeamsDeleteResponse {
+  id: ID
+  name: String
+  slug: String
+  createdDate: DateTime
+  updatedDate: DateTime
+}
+
+type teamsEdge {
+  """The node containing the teams"""
+  node: teams!
+
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+}
+
+type TeamsConnection {
+  """Paging information"""
+  pageInfo: PageInfo!
+
+  """Array of edges."""
+  edges: [teamsEdge!]!
+}
+
 type Query {
-  account(id: Float!): Account!
-  accounts: [Account!]!
-  user(id: Float!): User!
-  users: [User!]!
-  plan(id: Float!): Plan!
-  plans: [Plan!]!
-  team(id: Float!): Team!
-  teams: [Team!]!
+  account(
+    """The id of the record to find."""
+    id: ID!
+  ): account!
+  accounts(
+    """Limit or page results."""
+    paging: CursorPaging! = {first: 10}
+
+    """Specify to filter the records returned."""
+    filter: accountFilter! = {}
+
+    """Specify to sort results."""
+    sorting: [accountSort!]! = []
+  ): AccountConnection!
+  user(
+    """The id of the record to find."""
+    id: ID!
+  ): user!
+  users(
+    """Limit or page results."""
+    paging: CursorPaging! = {first: 10}
+
+    """Specify to filter the records returned."""
+    filter: userFilter! = {}
+
+    """Specify to sort results."""
+    sorting: [userSort!]! = []
+  ): UserConnection!
+  plan(
+    """The id of the record to find."""
+    id: ID!
+  ): plan!
+  plans(
+    """Limit or page results."""
+    paging: CursorPaging! = {first: 10}
+
+    """Specify to filter the records returned."""
+    filter: planFilter! = {}
+
+    """Specify to sort results."""
+    sorting: [planSort!]! = []
+  ): PlanConnection!
+  teams(
+    """Limit or page results."""
+    paging: CursorPaging! = {first: 10}
+
+    """Specify to filter the records returned."""
+    filter: teamsFilter! = {}
+
+    """Specify to sort results."""
+    sorting: [teamsSort!]! = []
+  ): TeamsConnection!
+  projects(
+    """Limit or page results."""
+    paging: CursorPaging! = {first: 10}
+
+    """Specify to filter the records returned."""
+    filter: projectsFilter! = {}
+
+    """Specify to sort results."""
+    sorting: [projectsSort!]! = []
+  ): ProjectsConnection!
+}
+
+input CursorPaging {
+  """Paginate before opaque cursor"""
+  before: ConnectionCursor
+
+  """Paginate after opaque cursor"""
+  after: ConnectionCursor
+
+  """Paginate first"""
+  first: Int
+
+  """Paginate last"""
+  last: Int
+}
+
+input accountFilter {
+  and: [accountFilter!]
+  or: [accountFilter!]
+  id: IDFilterComparison
+  isActive: BooleanFieldComparison
+  createdDate: DateFieldComparison
+  updatedDate: DateFieldComparison
+}
+
+input BooleanFieldComparison {
+  is: Boolean
+  isNot: Boolean
+}
+
+input accountSort {
+  field: accountSortFields!
+  direction: SortDirection!
+  nulls: SortNulls
+}
+
+enum accountSortFields {
+  id
+  isActive
+  createdDate
+  updatedDate
+}
+
+input userFilter {
+  and: [userFilter!]
+  or: [userFilter!]
+  id: IDFilterComparison
+  email: StringFieldComparison
+  firstName: StringFieldComparison
+  lastName: StringFieldComparison
+  isActive: BooleanFieldComparison
+  createdDate: DateFieldComparison
+  updatedDate: DateFieldComparison
+}
+
+input userSort {
+  field: userSortFields!
+  direction: SortDirection!
+  nulls: SortNulls
+}
+
+enum userSortFields {
+  id
+  email
+  firstName
+  lastName
+  isActive
+  createdDate
+  updatedDate
+}
+
+input planFilter {
+  and: [planFilter!]
+  or: [planFilter!]
+  id: IDFilterComparison
+  name: StringFieldComparison
+  price: NumberFieldComparison
+  isActive: BooleanFieldComparison
+  createdDate: DateFieldComparison
+  updatedDate: DateFieldComparison
+}
+
+input NumberFieldComparison {
+  is: Boolean
+  isNot: Boolean
+  eq: Float
+  neq: Float
+  gt: Float
+  gte: Float
+  lt: Float
+  lte: Float
+  in: [Float!]
+  notIn: [Float!]
+  between: NumberFieldComparisonBetween
+  notBetween: NumberFieldComparisonBetween
+}
+
+input NumberFieldComparisonBetween {
+  lower: Float!
+  upper: Float!
+}
+
+input planSort {
+  field: planSortFields!
+  direction: SortDirection!
+  nulls: SortNulls
+}
+
+enum planSortFields {
+  id
+  name
+  price
+  isActive
+  createdDate
+  updatedDate
+}
+
+input projectsFilter {
+  and: [projectsFilter!]
+  or: [projectsFilter!]
+  id: IDFilterComparison
+  name: StringFieldComparison
+  slug: StringFieldComparison
+  createdDate: DateFieldComparison
+  updatedDate: DateFieldComparison
+}
+
+input projectsSort {
+  field: projectsSortFields!
+  direction: SortDirection!
+  nulls: SortNulls
+}
+
+enum projectsSortFields {
+  id
+  name
+  slug
+  createdDate
+  updatedDate
 }
 
 type Mutation {
-  accountCreate: Account!
-  accountDelete(id: Int!): Account!
+  setPlanOnAccount(input: SetPlanOnAccountInput!): account!
+  createOneAccount(input: CreateOneAccountInput!): account!
+  createManyAccounts(input: CreateManyAccountsInput!): [account!]!
+  updateOneAccount(input: UpdateOneAccountInput!): account!
+  updateManyAccounts(input: UpdateManyAccountsInput!): UpdateManyResponse!
+  deleteOneAccount(input: DeleteOneAccountInput!): AccountDeleteResponse!
+  deleteManyAccounts(input: DeleteManyAccountsInput!): DeleteManyResponse!
   login(email: String!, password: String!): TokenResponse!
-  register(email: String!, password: String!): User!
-  userCreate(user: UserInput!): User!
-  userUpdate(id: Int!, user: UserInput!): User!
-  userDelete(id: Int!): User!
-  planCreate(plan: PlanInput!): Plan!
-  planUpdate(id: Int!, plan: PlanInput!): Plan!
-  planDelete(id: Int!): Plan!
-  teamCreate(team: TeamInput!): Team!
-  teamUpdate(id: Int!, team: TeamInput!): Team!
-  teamDelete(id: Int!): Team!
+  register(email: String!, password: String!): user!
+  createOneUser(input: CreateOneUserInput!): user!
+  createManyUsers(input: CreateManyUsersInput!): [user!]!
+  updateOneUser(input: UpdateOneUserInput!): user!
+  updateManyUsers(input: UpdateManyUsersInput!): UpdateManyResponse!
+  deleteOneUser(input: DeleteOneUserInput!): UserDeleteResponse!
+  deleteManyUsers(input: DeleteManyUsersInput!): DeleteManyResponse!
+  createOnePlan(input: CreateOnePlanInput!): plan!
+  createManyPlans(input: CreateManyPlansInput!): [plan!]!
+  updateOnePlan(input: UpdateOnePlanInput!): plan!
+  updateManyPlans(input: UpdateManyPlansInput!): UpdateManyResponse!
+  deleteOnePlan(input: DeleteOnePlanInput!): PlanDeleteResponse!
+  deleteManyPlans(input: DeleteManyPlansInput!): DeleteManyResponse!
+  createOneTeams(input: CreateOneTeamsInput!): teams!
+  createManyTeams(input: CreateManyTeamsInput!): [teams!]!
+  updateOneTeams(input: UpdateOneTeamsInput!): teams!
+  updateManyTeams(input: UpdateManyTeamsInput!): UpdateManyResponse!
+  deleteOneTeams(input: DeleteOneTeamsInput!): TeamsDeleteResponse!
+  deleteManyTeams(input: DeleteManyTeamsInput!): DeleteManyResponse!
+  createOneProjects(input: CreateOneProjectsInput!): projects!
+  createManyProjects(input: CreateManyProjectsInput!): [projects!]!
+  updateOneProjects(input: UpdateOneProjectsInput!): projects!
+  updateManyProjects(input: UpdateManyProjectsInput!): UpdateManyResponse!
+  deleteOneProjects(input: DeleteOneProjectsInput!): ProjectsDeleteResponse!
+  deleteManyProjects(input: DeleteManyProjectsInput!): DeleteManyResponse!
 }
 
-input UserInput {
+input SetPlanOnAccountInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
+input CreateOneAccountInput {
+  """The record to create"""
+  account: CreateAccount!
+}
+
+input CreateAccount {
+  id: ID!
+  isActive: Boolean!
+  createdDate: DateTime!
+  updatedDate: DateTime!
+}
+
+input CreateManyAccountsInput {
+  """Array of records to create"""
+  accounts: [CreateAccount!]!
+}
+
+input UpdateOneAccountInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateAccount!
+}
+
+input UpdateAccount {
+  id: ID
+  isActive: Boolean
+  createdDate: DateTime
+  updatedDate: DateTime
+}
+
+input UpdateManyAccountsInput {
+  """Filter used to find fields to update"""
+  filter: accountUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateAccount!
+}
+
+input accountUpdateFilter {
+  and: [accountUpdateFilter!]
+  or: [accountUpdateFilter!]
+  id: IDFilterComparison
+  isActive: BooleanFieldComparison
+  createdDate: DateFieldComparison
+  updatedDate: DateFieldComparison
+}
+
+input DeleteOneAccountInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteManyAccountsInput {
+  """Filter to find records to delete"""
+  filter: accountDeleteFilter!
+}
+
+input accountDeleteFilter {
+  and: [accountDeleteFilter!]
+  or: [accountDeleteFilter!]
+  id: IDFilterComparison
+  isActive: BooleanFieldComparison
+  createdDate: DateFieldComparison
+  updatedDate: DateFieldComparison
+}
+
+input CreateOneUserInput {
+  """The record to create"""
+  user: CreateUser!
+}
+
+input CreateUser {
+  id: ID!
+  email: String!
+  firstName: String!
+  lastName: String!
+  isActive: Boolean!
+  createdDate: DateTime!
+  updatedDate: DateTime!
+}
+
+input CreateManyUsersInput {
+  """Array of records to create"""
+  users: [CreateUser!]!
+}
+
+input UpdateOneUserInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateUser!
+}
+
+input UpdateUser {
+  id: ID
+  email: String
   firstName: String
   lastName: String
+  isActive: Boolean
+  createdDate: DateTime
+  updatedDate: DateTime
 }
 
-input PlanInput {
+input UpdateManyUsersInput {
+  """Filter used to find fields to update"""
+  filter: userUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateUser!
+}
+
+input userUpdateFilter {
+  and: [userUpdateFilter!]
+  or: [userUpdateFilter!]
+  id: IDFilterComparison
+  email: StringFieldComparison
+  firstName: StringFieldComparison
+  lastName: StringFieldComparison
+  isActive: BooleanFieldComparison
+  createdDate: DateFieldComparison
+  updatedDate: DateFieldComparison
+}
+
+input DeleteOneUserInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteManyUsersInput {
+  """Filter to find records to delete"""
+  filter: userDeleteFilter!
+}
+
+input userDeleteFilter {
+  and: [userDeleteFilter!]
+  or: [userDeleteFilter!]
+  id: IDFilterComparison
+  email: StringFieldComparison
+  firstName: StringFieldComparison
+  lastName: StringFieldComparison
+  isActive: BooleanFieldComparison
+  createdDate: DateFieldComparison
+  updatedDate: DateFieldComparison
+}
+
+input CreateOnePlanInput {
+  """The record to create"""
+  plan: PlanCreateDto!
+}
+
+input PlanCreateDto {
   name: String!
   price: Float!
   stripeProductId: String!
 }
 
-input TeamInput {
+input CreateManyPlansInput {
+  """Array of records to create"""
+  plans: [PlanCreateDto!]!
+}
+
+input UpdateOnePlanInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdatePlan!
+}
+
+input UpdatePlan {
+  id: ID
+  name: String
+  price: Float
+  stripeProductId: String
+  isActive: Boolean
+  createdDate: DateTime
+  updatedDate: DateTime
+}
+
+input UpdateManyPlansInput {
+  """Filter used to find fields to update"""
+  filter: planUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdatePlan!
+}
+
+input planUpdateFilter {
+  and: [planUpdateFilter!]
+  or: [planUpdateFilter!]
+  id: IDFilterComparison
+  name: StringFieldComparison
+  price: NumberFieldComparison
+  isActive: BooleanFieldComparison
+  createdDate: DateFieldComparison
+  updatedDate: DateFieldComparison
+}
+
+input DeleteOnePlanInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteManyPlansInput {
+  """Filter to find records to delete"""
+  filter: planDeleteFilter!
+}
+
+input planDeleteFilter {
+  and: [planDeleteFilter!]
+  or: [planDeleteFilter!]
+  id: IDFilterComparison
+  name: StringFieldComparison
+  price: NumberFieldComparison
+  isActive: BooleanFieldComparison
+  createdDate: DateFieldComparison
+  updatedDate: DateFieldComparison
+}
+
+input CreateOneTeamsInput {
+  """The record to create"""
+  teams: TeamCreateDto!
+}
+
+input TeamCreateDto {
   name: String!
+}
+
+input CreateManyTeamsInput {
+  """Array of records to create"""
+  teams: [TeamCreateDto!]!
+}
+
+input UpdateOneTeamsInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateTeams!
+}
+
+input UpdateTeams {
+  id: ID
+  name: String
+  slug: String
+  createdDate: DateTime
+  updatedDate: DateTime
+}
+
+input UpdateManyTeamsInput {
+  """Filter used to find fields to update"""
+  filter: teamsUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateTeams!
+}
+
+input teamsUpdateFilter {
+  and: [teamsUpdateFilter!]
+  or: [teamsUpdateFilter!]
+  id: IDFilterComparison
+  name: StringFieldComparison
+  slug: StringFieldComparison
+  createdDate: DateFieldComparison
+  updatedDate: DateFieldComparison
+}
+
+input DeleteOneTeamsInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteManyTeamsInput {
+  """Filter to find records to delete"""
+  filter: teamsDeleteFilter!
+}
+
+input teamsDeleteFilter {
+  and: [teamsDeleteFilter!]
+  or: [teamsDeleteFilter!]
+  id: IDFilterComparison
+  name: StringFieldComparison
+  slug: StringFieldComparison
+  createdDate: DateFieldComparison
+  updatedDate: DateFieldComparison
+}
+
+input CreateOneProjectsInput {
+  """The record to create"""
+  projects: ProjectCreateDto!
+}
+
+input ProjectCreateDto {
+  name: String!
+}
+
+input CreateManyProjectsInput {
+  """Array of records to create"""
+  projects: [ProjectCreateDto!]!
+}
+
+input UpdateOneProjectsInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateProjects!
+}
+
+input UpdateProjects {
+  id: ID
+  name: String
+  slug: String
+  createdDate: DateTime
+  updatedDate: DateTime
+}
+
+input UpdateManyProjectsInput {
+  """Filter used to find fields to update"""
+  filter: projectsUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateProjects!
+}
+
+input projectsUpdateFilter {
+  and: [projectsUpdateFilter!]
+  or: [projectsUpdateFilter!]
+  id: IDFilterComparison
+  name: StringFieldComparison
+  slug: StringFieldComparison
+  createdDate: DateFieldComparison
+  updatedDate: DateFieldComparison
+}
+
+input DeleteOneProjectsInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteManyProjectsInput {
+  """Filter to find records to delete"""
+  filter: projectsDeleteFilter!
+}
+
+input projectsDeleteFilter {
+  and: [projectsDeleteFilter!]
+  or: [projectsDeleteFilter!]
+  id: IDFilterComparison
+  name: StringFieldComparison
+  slug: StringFieldComparison
+  createdDate: DateFieldComparison
+  updatedDate: DateFieldComparison
 }

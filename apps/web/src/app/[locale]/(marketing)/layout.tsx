@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react'
 import { SiteFooter } from 'ui/marketing/components/site-footer'
 
-import '@/styles/globals.css'
+import '~/styles/globals.css'
 
 const AppLayout = async ({ children }: PropsWithChildren) => {
 	return (

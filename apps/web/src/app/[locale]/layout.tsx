@@ -4,8 +4,9 @@ import { NextIntlClientProvider } from 'next-intl'
 import { PropsWithChildren } from 'react'
 import { MainNav } from 'ui/components/main-nav'
 
-import '@/styles/globals.css'
+import '~/styles/globals.css'
 import { defaultLocale, getMessages, I18nProps } from '../../i18n'
+import { AppProviders } from './_components/app-providers'
 
 export { generateMetadata } from '../../i18n'
 
@@ -20,14 +21,16 @@ const LocaleLayout = async ({ children, params: { locale = defaultLocale } }: Pr
 			lang={locale}
 		>
 			<body className={clsx(inter.className, 'flex h-full flex-col')}>
-				<NextIntlClientProvider
-					locale={defaultLocale}
-					messages={messages}
-				>
-					<MainNav/>
+				<AppProviders>
+					<NextIntlClientProvider
+						locale={defaultLocale}
+						messages={messages}
+					>
+						<MainNav/>
 
-					{children}
-				</NextIntlClientProvider>
+						{children}
+					</NextIntlClientProvider>
+				</AppProviders>
 			</body>
 		</html>
 	)

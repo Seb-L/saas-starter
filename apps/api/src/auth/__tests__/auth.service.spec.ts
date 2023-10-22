@@ -4,9 +4,8 @@ import { getRepositoryToken } from '@nestjs/typeorm'
 import { DataSource } from 'typeorm'
 import { beforeEach, describe, expect, it } from 'vitest'
 
-import { Account } from '../../accounts/account.model'
-import { User } from '../../users/user.model'
-import { UsersService } from '../../users/users.service'
+import { Account } from '../../accounts/account.entity'
+import { User } from '../../users/user.entity'
 import { AuthResolver } from '../auth.resolver'
 import { AuthService } from '../auth.service'
 
@@ -18,7 +17,6 @@ describe('AuthService', () => {
 			providers: [
 				AuthResolver,
 				AuthService,
-				UsersService,
 				JwtService,
 				// DataSource,
 				{ provide: DataSource, useValue: {} },
