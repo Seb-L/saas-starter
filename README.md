@@ -1,81 +1,51 @@
-# Turborepo starter
+# saas-starter
 
-This is an official starter Turborepo.
+## Apps and packages
 
-## Using this example
+- apps
+  - **api:** NestJS + graphql + graphql-query + vitest + Neon Postgres DB
+  - **docs:** NextJs + Nextra
+  - **web:** NextJs + ReactQuery + vitest
+- packages:
+  - **ui:** TailwindCss + DaisyCss
+  
+## Install
 
-Run the following command:
-
-```sh
-npx create-turbo@latest
+```shell
+pnpm i
 ```
 
-## What's inside?
+This is a TurboRepo repository, to target an app or package script command you must use 
 
-This Turborepo includes the following packages/apps:
+`pnpm --filter=my-package-name my-command`
 
-### Apps and Packages
+## API
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+Useful documentations:
+- [NestJS](https://nestjs.com/)
+- [Nestjs Query](https://tripss.github.io/nestjs-query) (graphql filtering and pagination)
+- [TypeORM](https://typeorm.io/)
+- [Neon DB](https://neon.tech/docs/introduction) (serveless postgres database)
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+### Commands
 
-### Utilities
+Commands prefix: `pnpm --filter=api`
 
-This Turborepo has some additional tools already setup for you:
+| Command      | Description                                         |
+|--------------|-----------------------------------------------------|
+| `start:dev`  | Run in dev mode                                     |
+| `build`      | Build for production                                |
+| `start:prod` | Run in production mode                              |
+| `unit`       | Run unit tests                                      |
+| `unit:cov`   | Run unit tests with coverage                        |
+| `unit:watch` | Run unit tests in watch mode                        |
+| `unit:e2e`   | Run e2e tests                                       |
+| `gen:types`  | Generate TS types for graphql-request used in `web` |
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+### Development
 
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm dev
+```shell
+pnpm --filter=api start:dev
 ```
 
-### Remote Caching
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+- GraphQL playground: [`http://localhost:3001/graphql`](http://localhost:3001/graphql)
