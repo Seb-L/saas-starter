@@ -1,12 +1,11 @@
 import { PropsWithChildren } from 'react'
-import { SiteFooter } from 'ui/marketing/components/site-footer'
 
-import '~/styles/globals.css'
+import { SiteFooter } from './_components/site-footer'
 
 const AppLayout = async ({ children }: PropsWithChildren) => {
 	return (
 		<>
-			<main className='flex w-full flex-col bg-base-100'>
+			<main className='flex w-full flex-col'>
 				{children}
 			</main>
 

@@ -5,7 +5,7 @@ module.exports = {
 	settings: {
 		next: { rootDir: ['apps/*/'] },
 		tailwindcss: {
-			config: require('./packages/ui/tailwind.config'),
+			config: require('./packages/ui/tailwind.config.ts'),
 			classRegex: '(C|c)lassName$',
 			callees: ['classnames', 'clsx', 'cn'],
 		},

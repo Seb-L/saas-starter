@@ -1,12 +1,12 @@
-import clsx from 'clsx'
 import { Inter } from 'next/font/google'
 import { NextIntlClientProvider } from 'next-intl'
 import { PropsWithChildren } from 'react'
-import { MainNav } from 'ui/components/main-nav'
+import { cn } from 'ui/utils/cn'
 
 import '~/styles/globals.css'
 import { defaultLocale, getMessages, I18nProps } from '../../i18n'
 import { AppProviders } from './_components/app-providers'
+import { MainNav } from './_components/main-nav'
 
 export { generateMetadata } from '../../i18n'
 
@@ -20,7 +20,7 @@ const LocaleLayout = async ({ children, params: { locale = defaultLocale } }: Pr
 			className='h-full'
 			lang={locale}
 		>
-			<body className={clsx(inter.className, 'flex h-full flex-col')}>
+			<body className={cn(inter.className, 'flex h-full flex-col')}>
 				<AppProviders>
 					<NextIntlClientProvider
 						locale={defaultLocale}
