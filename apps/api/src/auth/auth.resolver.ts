@@ -1,7 +1,7 @@
 import { BadRequestException } from '@nestjs/common'
 import { Args, Mutation, Resolver } from '@nestjs/graphql'
 
-import { UserDto } from '../users/dto/user.dto'
+import { UserModel } from '../users/models/user.model'
 import { AuthService } from './auth.service'
 import { Public } from './public.decorator'
 import { TokenResponse } from './token.model'
@@ -23,7 +23,7 @@ export class AuthResolver {
 	}
 
 	@Public()
-	@Mutation(() => UserDto)
+	@Mutation(() => UserModel)
 	async register (
 		@Args('email') email: string,
 		@Args('password') password: string,

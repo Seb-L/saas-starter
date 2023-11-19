@@ -3,7 +3,7 @@ import { NestjsQueryGraphQLModule } from '@ptc-org/nestjs-query-graphql'
 import { NestjsQueryTypeOrmModule } from '@ptc-org/nestjs-query-typeorm'
 
 import { Account } from './account.entity'
-import { AccountDto } from './dto/account.dto'
+import { AccountModel } from './models/account.model'
 
 @Module({
 	imports: [
@@ -12,7 +12,7 @@ import { AccountDto } from './dto/account.dto'
 			resolvers: [
 				{
 					EntityClass: Account,
-					DTOClass: AccountDto,
+					DTOClass: AccountModel,
 				},
 			],
 		}),

@@ -2,7 +2,7 @@ import { Field, GraphQLISODateTime, ID, ObjectType } from '@nestjs/graphql'
 import { FilterableField, IDField } from '@ptc-org/nestjs-query-graphql'
 
 @ObjectType('plan')
-export class PlanDto {
+export class PlanModel {
 	@IDField(() => ID)
 	id: string
 

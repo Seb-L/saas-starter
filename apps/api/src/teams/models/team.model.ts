@@ -1,13 +1,13 @@
 import { GraphQLISODateTime, ID, ObjectType } from '@nestjs/graphql'
 import { FilterableField, IDField, Relation } from '@ptc-org/nestjs-query-graphql'
 
-import { TeamDto } from '../../teams/dto/team.dto'
-import { UserDto } from '../../users/dto/user.dto'
+import { ProjectModel } from '../../projects/models/project.model'
+import { UserModel } from '../../users/models/user.model'
 
-@ObjectType('projects')
-@Relation('users', () => UserDto)
-@Relation('teams', () => TeamDto)
-export class ProjectDto {
+@ObjectType('teams')
+@Relation('users', () => UserModel)
+@Relation('projects', () => ProjectModel)
+export class TeamModel {
 	@IDField(() => ID)
 	id: string
 

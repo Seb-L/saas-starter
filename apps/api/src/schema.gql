@@ -131,8 +131,8 @@ type teams {
 type user {
   id: ID!
   email: String!
-  firstName: String!
-  lastName: String!
+  firstName: String
+  lastName: String
   isActive: Boolean!
   createdDate: DateTime!
   updatedDate: DateTime!
@@ -776,8 +776,8 @@ input CreateOneUserInput {
 input CreateUser {
   id: ID!
   email: String!
-  firstName: String!
-  lastName: String!
+  firstName: String
+  lastName: String
   isActive: Boolean!
   createdDate: DateTime!
   updatedDate: DateTime!
@@ -850,18 +850,18 @@ input userDeleteFilter {
 
 input CreateOnePlanInput {
   """The record to create"""
-  plan: PlanCreateDto!
+  plan: PlanCreateModel!
 }
 
-input PlanCreateDto {
+input PlanCreateModel {
   name: String!
   price: Float!
-  stripeProductId: String!
+  stripeProductId: String
 }
 
 input CreateManyPlansInput {
   """Array of records to create"""
-  plans: [PlanCreateDto!]!
+  plans: [PlanCreateModel!]!
 }
 
 input UpdateOnePlanInput {
@@ -924,16 +924,16 @@ input planDeleteFilter {
 
 input CreateOneTeamsInput {
   """The record to create"""
-  teams: TeamCreateDto!
+  teams: TeamCreateModel!
 }
 
-input TeamCreateDto {
+input TeamCreateModel {
   name: String!
 }
 
 input CreateManyTeamsInput {
   """Array of records to create"""
-  teams: [TeamCreateDto!]!
+  teams: [TeamCreateModel!]!
 }
 
 input UpdateOneTeamsInput {
@@ -992,16 +992,16 @@ input teamsDeleteFilter {
 
 input CreateOneProjectsInput {
   """The record to create"""
-  projects: ProjectCreateDto!
+  projects: ProjectCreateModel!
 }
 
-input ProjectCreateDto {
+input ProjectCreateModel {
   name: String!
 }
 
 input CreateManyProjectsInput {
   """Array of records to create"""
-  projects: [ProjectCreateDto!]!
+  projects: [ProjectCreateModel!]!
 }
 
 input UpdateOneProjectsInput {

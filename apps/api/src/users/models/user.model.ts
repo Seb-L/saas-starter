@@ -1,13 +1,13 @@
 import { GraphQLISODateTime, ID, ObjectType } from '@nestjs/graphql'
 import { FilterableField, Relation, UnPagedRelation } from '@ptc-org/nestjs-query-graphql'
 
-import { AccountDto } from '../../accounts/dto/account.dto'
-import { TeamDto } from '../../teams/dto/team.dto'
+import { AccountModel } from '../../accounts/models/account.model'
+import { TeamModel } from '../../teams/models/team.model'
 
 @ObjectType('user')
-@Relation('account', () => AccountDto, { enableLookAhead: true, nullable: true, complexity: 5 })
-@UnPagedRelation('teams', () => TeamDto, { nullable: true, complexity: 5 })
-export class UserDto {
+@Relation('account', () => AccountModel, { enableLookAhead: true, nullable: true, complexity: 5 })
+@UnPagedRelation('teams', () => TeamModel, { nullable: true, complexity: 5 })
+export class UserModel {
 	@FilterableField(() => ID)
 	id: number
 

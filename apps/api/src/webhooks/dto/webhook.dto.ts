@@ -1,10 +1,10 @@
 import { Field, GraphQLISODateTime, ID, ObjectType } from '@nestjs/graphql'
 import { FilterableField, Relation } from '@ptc-org/nestjs-query-graphql'
 
-import { AccountDto } from '../../accounts/dto/account.dto'
+import { AccountModel } from '../../accounts/models/account.model'
 
 @ObjectType('webhook')
-@Relation('account', () => AccountDto, { enableLookAhead: true, nullable: true, complexity: 5 })
+@Relation('account', () => AccountModel, { enableLookAhead: true, nullable: true, complexity: 5 })
 export class WebhookDto {
 	@FilterableField(() => ID)
 	id: number

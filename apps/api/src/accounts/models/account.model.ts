@@ -1,21 +1,19 @@
 import { GraphQLISODateTime, ID, ObjectType } from '@nestjs/graphql'
 import { FilterableField, IDField, Relation } from '@ptc-org/nestjs-query-graphql'
 
-import { ProjectDto } from '../../projects/dto/project.dto'
-import { UserDto } from '../../users/dto/user.dto'
+import { PlanModel } from '../../plans/models/plan.model'
 
-@ObjectType('teams')
-@Relation('users', () => UserDto)
-@Relation('projects', () => ProjectDto)
-export class TeamDto {
+@ObjectType('account')
+@Relation('plan', () => PlanModel, {
+	enableLookAhead: true,
+	update: { enabled: true },
+})
+export class AccountModel {
 	@IDField(() => ID)
 	id: string
 
 	@FilterableField()
-	name: string
-
-	@FilterableField()
-	slug: string
+	isActive: boolean
 
 	@FilterableField(() => GraphQLISODateTime)
 	createdDate: Date

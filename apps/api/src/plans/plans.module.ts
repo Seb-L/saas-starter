@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common'
 import { NestjsQueryGraphQLModule } from '@ptc-org/nestjs-query-graphql'
 import { NestjsQueryTypeOrmModule } from '@ptc-org/nestjs-query-typeorm'
 
-import { PlanDto } from './dto/plan.dto'
-import { PlanCreateDto } from './dto/plan-create.dto'
+import { PlanModel } from './models/plan.model'
+import { PlanCreateModel } from './models/plan-create.model'
 import { Plan } from './plan.entity'
 
 @Module({
@@ -13,8 +13,8 @@ import { Plan } from './plan.entity'
 			resolvers: [
 				{
 					EntityClass: Plan,
-					DTOClass: PlanDto,
-					CreateDTOClass: PlanCreateDto,
+					DTOClass: PlanModel,
+					CreateDTOClass: PlanCreateModel,
 				},
 			],
 		}),

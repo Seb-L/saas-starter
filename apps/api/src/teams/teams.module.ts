@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common'
 import { NestjsQueryGraphQLModule } from '@ptc-org/nestjs-query-graphql'
 import { NestjsQueryTypeOrmModule } from '@ptc-org/nestjs-query-typeorm'
 
-import { TeamDto } from './dto/team.dto'
-import { TeamCreateDto } from './dto/team-create.dto'
+import { TeamModel } from './models/team.model'
+import { TeamCreateModel } from './models/team-create.model'
 import { Team } from './team.entity'
 
 @Module({
@@ -13,8 +13,8 @@ import { Team } from './team.entity'
 			resolvers: [
 				{
 					EntityClass: Team,
-					DTOClass: TeamDto,
-					CreateDTOClass: TeamCreateDto,
+					DTOClass: TeamModel,
+					CreateDTOClass: TeamCreateModel,
 				},
 			],
 		}),
