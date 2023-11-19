@@ -75,6 +75,39 @@ type AccountConnection {
   edges: [accountEdge!]!
 }
 
+type webhook {
+  id: ID!
+  eventName: String!
+  callbackUrl: String!
+  createdDate: DateTime!
+  updatedDate: DateTime!
+  account: account
+}
+
+type WebhookDeleteResponse {
+  id: ID
+  eventName: String
+  callbackUrl: String
+  createdDate: DateTime
+  updatedDate: DateTime
+}
+
+type webhookEdge {
+  """The node containing the webhook"""
+  node: webhook!
+
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+}
+
+type WebhookConnection {
+  """Paging information"""
+  pageInfo: PageInfo!
+
+  """Array of edges."""
+  edges: [webhookEdge!]!
+}
+
 type projects {
   id: ID!
   name: String!
@@ -322,6 +355,20 @@ type Query {
     """Specify to sort results."""
     sorting: [accountSort!]! = []
   ): AccountConnection!
+  webhook(
+    """The id of the record to find."""
+    id: ID!
+  ): webhook!
+  webhooks(
+    """Limit or page results."""
+    paging: CursorPaging! = {first: 10}
+
+    """Specify to filter the records returned."""
+    filter: webhookFilter! = {}
+
+    """Specify to sort results."""
+    sorting: [webhookSort!]! = []
+  ): WebhookConnection!
   user(
     """The id of the record to find."""
     id: ID!
@@ -409,6 +456,28 @@ input accountSort {
 enum accountSortFields {
   id
   isActive
+  createdDate
+  updatedDate
+}
+
+input webhookFilter {
+  and: [webhookFilter!]
+  or: [webhookFilter!]
+  id: IDFilterComparison
+  eventName: StringFieldComparison
+  createdDate: DateFieldComparison
+  updatedDate: DateFieldComparison
+}
+
+input webhookSort {
+  field: webhookSortFields!
+  direction: SortDirection!
+  nulls: SortNulls
+}
+
+enum webhookSortFields {
+  id
+  eventName
   createdDate
   updatedDate
 }
@@ -521,6 +590,12 @@ type Mutation {
   deleteManyAccounts(input: DeleteManyAccountsInput!): DeleteManyResponse!
   login(email: String!, password: String!): TokenResponse!
   register(email: String!, password: String!): user!
+  createOneWebhook(input: CreateOneWebhookInput!): webhook!
+  createManyWebhooks(input: CreateManyWebhooksInput!): [webhook!]!
+  updateOneWebhook(input: UpdateOneWebhookInput!): webhook!
+  updateManyWebhooks(input: UpdateManyWebhooksInput!): UpdateManyResponse!
+  deleteOneWebhook(input: DeleteOneWebhookInput!): WebhookDeleteResponse!
+  deleteManyWebhooks(input: DeleteManyWebhooksInput!): DeleteManyResponse!
   createOneUser(input: CreateOneUserInput!): user!
   createManyUsers(input: CreateManyUsersInput!): [user!]!
   updateOneUser(input: UpdateOneUserInput!): user!
@@ -619,6 +694,76 @@ input accountDeleteFilter {
   or: [accountDeleteFilter!]
   id: IDFilterComparison
   isActive: BooleanFieldComparison
+  createdDate: DateFieldComparison
+  updatedDate: DateFieldComparison
+}
+
+input CreateOneWebhookInput {
+  """The record to create"""
+  webhook: CreateWebhook!
+}
+
+input CreateWebhook {
+  id: ID!
+  eventName: String!
+  callbackUrl: String!
+  createdDate: DateTime!
+  updatedDate: DateTime!
+}
+
+input CreateManyWebhooksInput {
+  """Array of records to create"""
+  webhooks: [CreateWebhook!]!
+}
+
+input UpdateOneWebhookInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateWebhook!
+}
+
+input UpdateWebhook {
+  id: ID
+  eventName: String
+  callbackUrl: String
+  createdDate: DateTime
+  updatedDate: DateTime
+}
+
+input UpdateManyWebhooksInput {
+  """Filter used to find fields to update"""
+  filter: webhookUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateWebhook!
+}
+
+input webhookUpdateFilter {
+  and: [webhookUpdateFilter!]
+  or: [webhookUpdateFilter!]
+  id: IDFilterComparison
+  eventName: StringFieldComparison
+  createdDate: DateFieldComparison
+  updatedDate: DateFieldComparison
+}
+
+input DeleteOneWebhookInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteManyWebhooksInput {
+  """Filter to find records to delete"""
+  filter: webhookDeleteFilter!
+}
+
+input webhookDeleteFilter {
+  and: [webhookDeleteFilter!]
+  or: [webhookDeleteFilter!]
+  id: IDFilterComparison
+  eventName: StringFieldComparison
   createdDate: DateFieldComparison
   updatedDate: DateFieldComparison
 }

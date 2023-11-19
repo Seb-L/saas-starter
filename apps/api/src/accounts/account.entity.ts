@@ -2,13 +2,14 @@ import {
 	Column,
 	CreateDateColumn,
 	Entity,
-	JoinColumn,
+	JoinColumn, ManyToOne,
 	OneToOne,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
 } from 'typeorm'
 
 import { Plan } from '../plans/plan.entity'
+import { Webhook } from '../webhooks/webhook.entity'
 
 export class AccountFeatureFlags {
 	specialFeature: boolean = false
@@ -28,6 +29,10 @@ export class Account {
 	@OneToOne(() => Plan, { nullable: true })
 	@JoinColumn()
 	plan?: Plan
+
+	@ManyToOne(() => Webhook, { nullable: true })
+	@JoinColumn()
+	webhooks?: Webhook[]
 
 	@CreateDateColumn()
 	createdDate: Date

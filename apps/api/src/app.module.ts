@@ -11,6 +11,7 @@ import { PlansModule } from './plans/plans.module'
 import { ProjectsModule } from './projects/projects.module'
 import { TeamsModule } from './teams/teams.module'
 import { UsersModule } from './users/users.module'
+import { WebhooksModule } from './webhooks/webhooks.module'
 
 @Module({
 	providers: [ComplexityPlugin],
@@ -28,6 +29,7 @@ import { UsersModule } from './users/users.module'
 		TeamsModule,
 		UsersModule,
 		ProjectsModule,
+		WebhooksModule,
 	],
 })
 export class AppModule {}
