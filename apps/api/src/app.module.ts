@@ -16,7 +16,7 @@ import { WebhooksModule } from './webhooks/webhooks.module'
 @Module({
 	providers: [ComplexityPlugin],
 	imports: [
-		ConfigModule.forRoot(),
+		ConfigModule.forRoot({ isGlobal: true }),
 		DbModule,
 		GraphQLModule.forRoot<ApolloDriverConfig>({
 			driver: ApolloDriver,
