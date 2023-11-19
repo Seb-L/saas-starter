@@ -13,8 +13,8 @@ import {
 import { Account } from '../accounts/account.entity'
 import { Team } from '../teams/team.entity'
 
-export class UserFeatureFlags {
-	specialFeature: boolean = false
+export interface UserFeatureFlags {
+	specialFeature?: boolean
 }
 
 export enum UserRole {
@@ -56,7 +56,7 @@ export class User {
 	})
 	role: UserRole
 
-	@Column('simple-json', { default: new UserFeatureFlags() })
+	@Column('simple-json', { default: {} })
 	flags: UserFeatureFlags
 
 	@OneToOne(() => Account)

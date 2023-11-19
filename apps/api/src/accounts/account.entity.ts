@@ -11,8 +11,8 @@ import {
 import { Plan } from '../plans/plan.entity'
 import { Webhook } from '../webhooks/webhook.entity'
 
-export class AccountFeatureFlags {
-	specialFeature: boolean = false
+export interface AccountFeatureFlags {
+	specialFeature?: boolean
 }
 
 @Entity()
@@ -23,7 +23,7 @@ export class Account {
 	@Column({ default: true })
 	isActive: boolean
 
-	@Column('simple-json', { default: new AccountFeatureFlags() })
+	@Column('simple-json', { default: {} })
 	flags: AccountFeatureFlags
 
 	@OneToOne(() => Plan, { nullable: true })

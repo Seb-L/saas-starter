@@ -7,6 +7,11 @@ import {
 	UpdateDateColumn,
 } from 'typeorm'
 
+export interface PlanFeatures {
+	teams?: boolean
+	webhooks?: boolean
+}
+
 @ObjectType()
 @Entity()
 export class Plan {
@@ -26,18 +31,12 @@ export class Plan {
 	@Column({ default: true })
 	isActive: boolean
 
+	@Column('simple-json', { default: {} })
+	features: PlanFeatures
+
 	@CreateDateColumn()
 	createdDate: Date
 
 	@UpdateDateColumn()
 	updatedDate: Date
-}
-
-@InputType()
-export class PlanInput {
-	name: string
-
-	price: number
-
-	stripeProductId: string
 }
