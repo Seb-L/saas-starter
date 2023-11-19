@@ -13,6 +13,18 @@ import {
 import { Account } from '../accounts/account.entity'
 import { Team } from '../teams/team.entity'
 
+export class UserFeatureFlags {
+	specialFeature: boolean = false
+}
+
+export enum UserRole {
+	SUPER_ADMIN = 'super_admin',
+	OWNER = 'owner',
+	ADMIN = 'admin',
+	EDITOR = 'editor',
+	MEMBER = 'member',
+}
+
 @Entity()
 export class User {
 	@PrimaryGeneratedColumn()
@@ -36,6 +48,16 @@ export class User {
 
 	@Column({ default: true })
 	isActive: boolean
+
+	@Column({
+		type: 'enum',
+		enum: UserRole,
+		default: UserRole.MEMBER,
+	})
+	role: UserRole
+
+	@Column('simple-json', { default: new UserFeatureFlags() })
+	flags: UserFeatureFlags
 
 	@OneToOne(() => Account)
 	@JoinColumn()

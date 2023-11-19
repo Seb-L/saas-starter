@@ -10,6 +10,10 @@ import {
 
 import { Plan } from '../plans/plan.entity'
 
+export class AccountFeatureFlags {
+	specialFeature: boolean = false
+}
+
 @Entity()
 export class Account {
 	@PrimaryGeneratedColumn('uuid')
@@ -17,6 +21,9 @@ export class Account {
 
 	@Column({ default: true })
 	isActive: boolean
+
+	@Column('simple-json', { default: new AccountFeatureFlags() })
+	flags: AccountFeatureFlags
 
 	@OneToOne(() => Plan, { nullable: true })
 	@JoinColumn()
